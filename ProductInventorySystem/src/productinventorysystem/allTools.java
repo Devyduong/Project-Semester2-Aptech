@@ -5,13 +5,21 @@
  */
 package productinventorysystem;
 
+import java.io.IOException;
+
 /**
  *
  * @author khamx
  */
 public class allTools {
-    public void clearScreen()
-    {
+    public static void clearscreen(){
         
+    try {
+        if (System.getProperty("os.name").contains("Window"))
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        else
+            Runtime.getRuntime().exec("clear");
+        
+    }catch(IOException | InterruptedException ex ) {}
     }
 }
