@@ -38,4 +38,5 @@ public class Additional
         for(int i = 1; i <= lengths; i++) System.out.print(" ");
         if(kta) System.out.println("||");
     }
+    
 }

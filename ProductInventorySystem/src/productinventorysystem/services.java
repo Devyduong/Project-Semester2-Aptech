@@ -24,6 +24,8 @@ public class services {
    private String passw = "123456";
    private String databaseName = "INVENTORYSYSTEM";
    
+   allTools objTool = new allTools();
+   
    Scanner ip = new Scanner(System.in);
    
    public void connectDatabase() throws SQLException
@@ -49,29 +51,57 @@ public class services {
        {
            //create variable of each fields of tbl_product
            String product_code, product_name, description;
-           float unit_price;
-           int amount, number;
+           String unit_price = "0f";
+           String amount, number;
            
-           System.out.print("Enter product code: ");
-           product_code = ip.next();
+           //insert product code 
+           do
+           {
+                System.out.print("Enter product code: ");
+                product_code = ip.next();
+           }
+           while(!objTool.checkCode(product_code));
+           //end indert product code
            
-           System.out.print("Enter product name: ");
-           product_name = ip.nextLine();
-           product_name = ip.nextLine();
+           //<check value product name> 
+           do
+           {
+                System.out.print("Enter product name: ");
+                product_name = ip.nextLine();
+                product_name = ip.nextLine();
+           }
+           while(!objTool.checkName(product_name));
+           //</check value product name>
            
-           System.out.print("Enter unit price: ");
-           unit_price = ip.nextFloat();
+           //<check price>
+           do
+           {
+                System.out.print("Enter unit price: ");
+                unit_price = ip.next();
+               
+           }while(!objTool.checkPrice(unit_price));
+           //</check price>
            
-           System.out.print("Enter amount: ");
-           amount = ip.nextInt();
-           
+           //<check amount>
+           do
+           {
+                System.out.print("Enter amount: ");
+                amount = ip.next();
+           }
+           while(!objTool.checkAmount(amount));
+           //</check amount>
            System.out.println("Enter description: ");
            description = ip.nextLine();
            description = ip.nextLine();
            
-           System.out.print("Enter number of product: ");
-           number = ip.nextInt();
-           
+           //<check number>
+           do
+           {
+                System.out.print("Enter number of product: ");
+                number = ip.next();
+           }
+           while(!objTool.checkNumber(number));
+           //</check number>
            //insert into database
            String cmd = "INSERT INTO tbl_product(product_code, product_name, unit_price, amount, descript, numbers)"
                    + " VALUES ('" + product_code + "','" + product_name + "','" + unit_price 
@@ -96,8 +126,13 @@ public class services {
            ResultSet rs;
            Statement stt = conn.createStatement();
             rs = stt.executeQuery("SELECT * FROM tbl_product");//lay danh sach toan bo san pham trong csdl
-           System.out.println("Enter product code you wanna remove: ");//nhap ma san pham de xoa
-           String prid = ip.next();
+            String prid = "";
+            do
+            {
+                System.out.println("Enter product code you wanna remove: ");//nhap ma san pham de xoa
+                prid = ip.next();
+            }
+            while(!objTool.checkCodeDel(prid));
            boolean ktt = false;//de kiem tra co ton tai san pham nay khong
            //in ra thong tin san pham neu co
            while(rs.next())

@@ -20,12 +20,14 @@ public class ProductInventorySystem
         
         //objAdd.startScreen();
         objService.connectDatabase();
-        //objService.DeleteProduct();
+        objService.DeleteProduct();
         //objService.addProduct();
+        
+        objAllTool.DisplayMainMenu();
         //objService.closeConnection();
         //objService.DisplayBaseOnCode();
         //objService.displayBaseOnName();
-        objService.DisplayInventory();
+        //objService.DisplayInventory();
         //objAllTool.clearscreen();
         //objService.test();
 //        System.out.println("USERNAME: ");
