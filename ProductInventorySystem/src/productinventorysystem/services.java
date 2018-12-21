@@ -26,6 +26,7 @@ public class services {
    
    allTools objTool = new allTools();
    ProductInventorySystem objMain = new ProductInventorySystem();
+   Additional objAdd = new Additional();
    
    Scanner ip = new Scanner(System.in);
    
@@ -147,8 +148,11 @@ public class services {
                if(rs.getString(1).equals(prid))
                {
                    ktt = true;
-                   System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
-                   System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)+" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                   //System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
+                   //System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)+" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                   objAdd.printTableHeader();
+                   objAdd.printTableBody(rs.getString(1), rs.getString(2), rs.getString(3),
+                                rs.getString(4), rs.getString(6), rs.getString(5));
                }
            }
            // ket thuc 
@@ -254,8 +258,11 @@ public class services {
                if(rs.getString(1).equals(prid))
                {
                    ktt = true;
-                   System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
-                   System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)+" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                   //System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
+                   //System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)+" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                   objAdd.printTableHeader();
+                   objAdd.printTableBody(rs.getString(1), rs.getString(2), rs.getString(3),
+                                rs.getString(4), rs.getString(6), rs.getString(5));
                }
            }
            // ket thuc 
@@ -293,6 +300,7 @@ public class services {
     */
    public void DisplayBaseOnCode()
    {
+       System.out.println("    ========================== DISPLAY PRODUCT DETAIL BASE ON CODE ==========================");
        try
        {
            
@@ -309,8 +317,11 @@ public class services {
                if(rs.getString(1).equals(prid))
                {
                    ktt = true;
-                   System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
-                   System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)+" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                   //System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
+                   objAdd.printTableHeader();
+                   //System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)+" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                   objAdd.printTableBody(rs.getString(1), rs.getString(2), rs.getString(3),
+                                rs.getString(4), rs.getString(6), rs.getString(5));
                }
            }
            // ket thuc 
@@ -326,9 +337,11 @@ public class services {
    }
    /**
     * Display product base on name
+    * @method displayBaseOnName
     */
    public void displayBaseOnName()
    {
+       System.out.println("    ========================== DISPLAY PRODUCT DETAIL BASE ON NAME ==========================");
        try
        {
            boolean kt = false;
@@ -339,13 +352,16 @@ public class services {
            ResultSet rs;
            Statement stt = conn.createStatement();
             rs = stt.executeQuery("SELECT * FROM tbl_product");//lay danh sach toan bo san pham trong csdl
-           System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
+           //System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
+           objAdd.printTableHeader();
            while(rs.next())
            {
                if(rs.getString(2).toUpperCase().equals(product_name.toUpperCase()))
                {
                    kt = true;
-                   System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)+" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                   //System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)+" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                   objAdd.printTableBody(rs.getString(1), rs.getString(2), rs.getString(3),
+                                rs.getString(4), rs.getString(6), rs.getString(5));
                }
            }
            if(kt == false)
@@ -359,6 +375,12 @@ public class services {
            System.out.println(ex.getMessage());
        }
    }
+   /**
+    * @method DisplayInventory 
+    * Display all products
+    * @return void
+    * @throws SQLException 
+    */
    public void DisplayInventory() throws SQLException
    {
        try
@@ -366,108 +388,118 @@ public class services {
            services objSer = new services();
             Statement stt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
              ResultSet rs =  stt.executeQuery("SELECT * FROM tbl_product");
-             int totalLines = 0; //tong so dong co trong ResultSet
+             int totalLines = 0; //tong so line co trong ResultSet
              int totalPages; // Tong so trang
-             int currentRow = 0;
+             int currentRow = 0; // line hien thoi trong resultset 
              int currentPage = 1;
+             int numberLinesEachPage = 5;
             while(rs.next())
             {
                 totalLines++;
             }
-            totalPages = (int)(totalLines / 5) + 1; // tinh tong so trang = (tong so dong / so dong tren 1 trang) + 1;
+            totalPages = (int)(totalLines / numberLinesEachPage) + 1; // tinh tong so trang = (tong so dong / so dong tren 1 trang) + 1;
              
             rs.beforeFirst(); //chuyen con tro ve vi tri dau ban ghi
-            boolean clAll = true;
+            boolean clAll = true; // bien kiem tra co tiep tuc xu li o function nay nua hay ko
             do
             {
                 rs.beforeFirst(); //chuyen con tro ve vi tri dau ban ghi
-            rs.absolute(currentRow); //chuyen con tro den line hien tai
-            System.out.println("----------------------ALL PRODUCT INVENTORY----------------------");
-            System.out.println("Total Pages: " + totalPages+ " - This is page "+ currentPage+"\n"); // in ra thong bao co bao nhieu trang - This is page 1
-            System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
-            //<in ra page 1>
-            for(int i = currentRow; i < currentPage * 5 ; i++)
-            {
-                if(rs.next()) 
+                rs.absolute(currentRow); //chuyen con tro den line hien tai
+                System.out.println("    ================================== ALL PRODUCT INVENTORY ==================================");
+                System.out.println("Total Pages: " + totalPages+ " - This is page "+ currentPage+"\n"); // in ra thong bao co bao nhieu trang - This is page 1
+                //System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
+                objAdd.printTableHeader();
+                //<in ra page>
+                for(int i = currentRow; i < currentPage * numberLinesEachPage ; i++)
                 {
-                    System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)
-                        +" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
-                }
-            }
-            //</in ra page1>
-            currentRow = currentPage * 5; // reset line hien thoi
-            String cho = objTool.subMenuDisplayAll();
-            if(cho.equals("1"))
-            {
-                objTool.DisplayMainMenu();
-                clAll = false;
-            }
-            else if(cho.equals("2"))
-            {
-                try
-                {
-                    System.out.print("Enter keyword to search:");
-                    String keyword = ip.nextLine();
-                    //objSer.SearchProduct(keyword);
-                    
-                    String cmman = "SELECT * FROM tbl_product WHERE product_name LIKE LOWER('%"+keyword+"%')";
-                    ResultSet rest = stt.executeQuery(cmman);
-                    if(!rest.wasNull())
+                    if(rs.next()) 
                     {
-                        System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
-                    }
-                    else
-                    {
-                        System.out.println(">>>>> Not found any product");
-                    }
-                    while(rest.next())
-                    {
-                         System.out.println(rest.getString(1)+" \t"+rest.getString(2)+" \t"+rest.getString(3)
-                                 +" \t"+rest.getString(4)+" \t"+rest.getString(5)+" \t"+rest.getString(6));
+                        //System.out.println(rs.getString(1)+" \t"+rs.getString(2)+" \t"+rs.getString(3)
+                        //    +" \t"+rs.getString(4)+" \t"+rs.getString(5)+" \t"+rs.getString(6));
+                        objAdd.printTableBody(rs.getString(1), rs.getString(2), rs.getString(3),
+                                rs.getString(4), rs.getString(6), rs.getString(5));
                     }
                 }
-                catch(Exception ex)
+                //</in ra page>
+                currentRow = currentPage * numberLinesEachPage; // reset line hien thoi
+                String cho = objTool.subMenuDisplayAll(); // 1. Home 2. Search 3. other pages
+                if(cho.equals("1"))// comback home
                 {
-                    System.out.println(">>>>>"+ex.getMessage());
+                    objTool.DisplayMainMenu();
+                    clAll = false;
                 }
-                clAll = false;
-                objTool.DisplayMainMenu();
-            }
-            else if(cho.equals("3"))
-            {
-                boolean cke = true;
-                String chs = "";
-                while(cke)
+                else if(cho.equals("2")) //search 
                 {
-                    System.out.println("Enter page:(1 - "+totalPages+")");
-                    chs = ip.next();
-                    
-                    if(objTool.IsNumber(chs))
+                    try
                     {
-                        if(Integer.parseInt(chs) <= totalPages)
+                        Scanner sip = new Scanner(System.in);
+                        System.out.print("Enter keyword to search:");
+                        String keyword = sip.nextLine(); // nhap tu tim kiem
+                        //objSer.SearchProduct(keyword);
+
+                        String cmman = "SELECT * FROM tbl_product WHERE product_name LIKE LOWER('%"+keyword+"%')"; //cau lenh SQL
+                        ResultSet rest = stt.executeQuery(cmman); //thưc thi truy van
+                        if(!rest.wasNull()) // neu tim thay
                         {
-                            cke = false;
-                            if(Integer.parseInt(chs) < currentPage)
+                            //System.out.println("Product Code \t Product Name \t Unit price \t Amount \t Description \t Number");
+                            objAdd.printTableHeader();
+                        }
+                        else // neu khong tim thay
+                        {
+                            System.out.println(">>>>> Not found any product");
+                        }
+                        while(rest.next()) // inn ra
+                        {
+//                             System.out.println(rest.getString(1)+" \t"+rest.getString(2)+" \t"+rest.getString(3)
+//                                     +" \t"+rest.getString(4)+" \t"+rest.getString(5)+" \t"+rest.getString(6));
+                            objAdd.printTableBody(rest.getString(1), rest.getString(2), rest.getString(3),
+                                rest.getString(4), rest.getString(6), rest.getString(5));
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        System.out.println(">>>>>"+ex.getMessage());
+                    }
+                    clAll = false; // ket thuc thuc thi function nay
+                    objTool.DisplayMainMenu(); // tro ve trang chu
+                }
+                else if(cho.equals("3")) // other pages
+                {
+                    boolean cke = true; // bien check vòng lặp
+                    String chs = "";
+                    while(cke)
+                    {
+                        //nhập page
+                        System.out.println("Enter page:(1 - "+totalPages+")");
+                        chs = ip.next();
+
+                        //kiểm tra xem có 
+                        if(objTool.IsNumber(chs))
+                        {
+                            if(Integer.parseInt(chs) <= totalPages)
                             {
-                                currentRow = (Integer.parseInt(chs) - 1) * 5;
+                                cke = false;
+                                if(Integer.parseInt(chs) < currentPage)
+                                {
+                                    currentRow = (Integer.parseInt(chs) - 1) * numberLinesEachPage;
+                                }
+                                else if(Integer.parseInt(chs) == currentPage)
+                                {
+                                    System.out.println(">>>>>You are here");
+                                }
+                                currentPage = Integer.parseInt(chs);
                             }
-                            else if(Integer.parseInt(chs) == currentPage)
+                            else
                             {
-                                System.out.println(">>>>>You are here");
+                                System.out.println(">>>>>Your choice is invalid");
                             }
-                            currentPage = Integer.parseInt(chs);
                         }
                         else
                         {
                             System.out.println(">>>>>Your choice is invalid");
                         }
                     }
-                    else
-                    {
-                        System.out.println(">>>>>Your choice is invalid");
-                    }
                 }
-            }
             }while(clAll);
        }
        catch(Exception ex)

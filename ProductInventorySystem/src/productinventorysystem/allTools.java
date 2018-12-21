@@ -43,13 +43,13 @@ public class allTools {
     public void DisplayMainMenu()
     {
         System.out.println("\n-----------------------------MENU-----------------------------");
-        System.out.println("1. Add new product");
-        System.out.println("2. Modify product details");
-        System.out.println("3. Delete product details");
-        System.out.println("4. Display product details based on product code");
-        System.out.println("5. Display product details based on product name");
-        System.out.println("6. Display inventory");
-        System.out.println("7. Exit");
+        System.out.println("\t1. Add new product");
+        System.out.println("\t2. Modify product details");
+        System.out.println("\t3. Delete product details");
+        System.out.println("\t4. Display product details based on product code");
+        System.out.println("\t5. Display product details based on product name");
+        System.out.println("\t6. Display inventory");
+        System.out.println("\t7. Logout and Exit");
     }
     
     /**

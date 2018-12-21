@@ -18,7 +18,7 @@ public class ProductInventorySystem
         Scanner ip = new Scanner(System.in);
         Authenticates objAuthen = new Authenticates();
         
-        //objAdd.startScreen();
+        
         objService.connectDatabase();
         //objService.DeleteProduct();
         
@@ -42,6 +42,7 @@ public class ProductInventorySystem
         if(objAuthen.Login(usern, passw))
         {
             System.out.println(">>>>>Login successfully");
+            objAdd.startSc();
             objAllTool.DisplayMainMenu();
             
             while(true)
@@ -79,7 +80,7 @@ public class ProductInventorySystem
                     objAllTool.DisplayMainMenu(); // hien thi menu
                     break;
                 case "2": // Chinh sua thong tin san pham
-                    System.out.println("--------------------MODIFY PRODUCT DETAIL----------------------");
+                    System.out.println("    ================================== MODIFY PRODUCT DETAIL ==================================");
                     chk = "";
                     do
                     {
@@ -92,7 +93,7 @@ public class ProductInventorySystem
                     objAllTool.DisplayMainMenu(); // hien thi menu
                     break;
                 case "3": // Xoa san pham
-                    System.out.println("----------------------DELETE PRODUCT DETAIL----------------------");
+                    System.out.println("    ================================== DELETE PRODUCT DETAIL ==================================");
                     chk = "";
                     do
                     {
