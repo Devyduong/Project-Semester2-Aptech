@@ -42,14 +42,15 @@ public class allTools {
     
     public void DisplayMainMenu()
     {
-        System.out.println("\n-----------------------------MENU-----------------------------");
-        System.out.println("\t1. Add new product");
-        System.out.println("\t2. Modify product details");
-        System.out.println("\t3. Delete product details");
-        System.out.println("\t4. Display product details based on product code");
-        System.out.println("\t5. Display product details based on product name");
-        System.out.println("\t6. Display inventory");
-        System.out.println("\t7. Logout and Exit");
+        System.out.println("============================================= MAIN MENU ============================================");
+        System.out.println("|| 1. Add new product                           2. Modify product details                         ||");
+        System.out.println("||                                                                                                ||");
+        System.out.println("|| 3. Delete product details                    4. Display product details based on product code  ||");
+        System.out.println("||                                                                                                ||");
+        System.out.println("|| 5. Display product details based on product name  6. Display inventory                         ||");
+        System.out.println("||                                                                                                ||");
+        System.out.println("|| 7. Logout and Exit                                                                             ||");
+        System.out.println("====================================================================================================");
     }
     
     /**
@@ -242,8 +243,9 @@ public class allTools {
     {
         Scanner ip = new Scanner(System.in);
         allTools obj = new allTools();
-        System.out.println("------------------------------------------------------------");
-        System.out.println("1. Home \t 2. Continue this task");
+        System.out.println("+--------------------------------------- MENU OPTIONS ---------------------------------------------+");
+        System.out.println("|                    1. Home                                     2. Continue this task             |");
+        System.out.println("+--------------------------------------------------------------------------------------------------+");
         String ch = "";
         boolean checkOp = true;
         while(checkOp)
@@ -270,8 +272,9 @@ public class allTools {
     {
         Scanner ip = new Scanner(System.in);
         allTools obj = new allTools();
-        System.out.println("------------------------------------------------------------");
-        System.out.println("1. Home \t 2. Search other products \t 3. Edit \t 4. Delete");
+        System.out.println("+--------------------------------------- MENU OPTIONS ---------------------------------------------+");
+        System.out.println("|        1. Home           2. Search other products          3. Edit             4. Delete         |");
+        System.out.println("+--------------------------------------------------------------------------------------------------+");
         String ch = "";
         boolean checkOp = true;
         while(checkOp)
@@ -299,8 +302,9 @@ public class allTools {
     {
         Scanner ip = new Scanner(System.in);
         allTools obj = new allTools();
-        System.out.println("------------------------------------------------------------");
-        System.out.println("1. Home \t 2. Search other products \t 3. Go to page");
+        System.out.println("+--------------------------------------- MENU OPTIONS ---------------------------------------------+");
+        System.out.println("|       1. Home                  2. Search other products                  3. Go to page           |");
+        System.out.println("+--------------------------------------------------------------------------------------------------+");
         String ch = "";
         boolean checkOp = true;
         while(checkOp)
@@ -324,6 +328,11 @@ public class allTools {
         }
         return ch;
     }
+    /**
+     * 
+     * @param num
+     * @return true/false
+     */
     public boolean IsNumber(String num)
     {
         double k;
@@ -337,5 +346,26 @@ public class allTools {
             rs = false;
         }
         return rs;
+    }
+    
+    public boolean checkNullName(String name)
+    {
+        boolean rs = false;
+        name = name.toLowerCase();
+        for (int i = 0; i < name.length(); i++) {
+            for(char c = 'a'; c < 'z'; c++)
+            {
+                if(c == name.charAt(i))
+                {
+                    rs = true;
+                    break;
+                }
+            }
+        }
+        if(!rs)
+        {
+            System.out.println(">>>>>Product name is not null");
+        }
+        return rs; 
     }
 }

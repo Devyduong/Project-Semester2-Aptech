@@ -51,7 +51,7 @@ public class services {
    {
        try
        {
-           System.out.println("----------------------ADD NEW PRODUCT----------------------");
+           System.out.println("    =============================== ADD NEW PRODUCT DETAILS =================================");
            //create variable of each fields of tbl_product
            String product_code, product_name, description;
            String unit_price = "0f";
@@ -69,11 +69,11 @@ public class services {
            //<check value product name> 
            do
            {
+               Scanner scd = new Scanner(System.in); // tao scanner rieng de tranh tinh trang loi scanner tao ra
                 System.out.print("Enter product name: ");
-                product_name = ip.nextLine();
-                product_name = ip.nextLine();
+                product_name = scd.nextLine();
            }
-           while(!objTool.checkName(product_name));
+           while(!objTool.checkName(product_name) || !objTool.checkNullName(product_name));
            //</check value product name>
            
            //<check price>
@@ -344,9 +344,10 @@ public class services {
        System.out.println("    ========================== DISPLAY PRODUCT DETAIL BASE ON NAME ==========================");
        try
        {
+           Scanner sc = new Scanner(System.in);
            boolean kt = false;
            System.out.println("Enter product name: ");
-           String product_name = ip.nextLine();
+           String product_name = sc.nextLine();
            //product_name = ip.nextLine();
            
            ResultSet rs;
@@ -392,7 +393,7 @@ public class services {
              int totalPages; // Tong so trang
              int currentRow = 0; // line hien thoi trong resultset 
              int currentPage = 1;
-             int numberLinesEachPage = 5;
+             int numberLinesEachPage = 10;
             while(rs.next())
             {
                 totalLines++;
@@ -403,6 +404,7 @@ public class services {
             boolean clAll = true; // bien kiem tra co tiep tuc xu li o function nay nua hay ko
             do
             {
+                currentRow = currentPage * numberLinesEachPage - numberLinesEachPage;
                 rs.beforeFirst(); //chuyen con tro ve vi tri dau ban ghi
                 rs.absolute(currentRow); //chuyen con tro den line hien tai
                 System.out.println("    ================================== ALL PRODUCT INVENTORY ==================================");
@@ -421,7 +423,7 @@ public class services {
                     }
                 }
                 //</in ra page>
-                currentRow = currentPage * numberLinesEachPage; // reset line hien thoi
+                //currentRow = currentPage * numberLinesEachPage; // reset line hien thoi
                 String cho = objTool.subMenuDisplayAll(); // 1. Home 2. Search 3. other pages
                 if(cho.equals("1"))// comback home
                 {
@@ -479,14 +481,10 @@ public class services {
                             if(Integer.parseInt(chs) <= totalPages)
                             {
                                 cke = false;
-                                if(Integer.parseInt(chs) < currentPage)
-                                {
-                                    currentRow = (Integer.parseInt(chs) - 1) * numberLinesEachPage;
-                                }
-                                else if(Integer.parseInt(chs) == currentPage)
-                                {
-                                    System.out.println(">>>>>You are here");
-                                }
+//                                if(Integer.parseInt(chs) < currentPage)
+//                                {
+//                                    currentRow = (Integer.parseInt(chs) - 1) * numberLinesEachPage;
+//                                }
                                 currentPage = Integer.parseInt(chs);
                             }
                             else

@@ -20,14 +20,6 @@ public class ProductInventorySystem
         
         
         objService.connectDatabase();
-        //objService.DeleteProduct();
-        
-        //objService.closeConnection();
-        //objService.DisplayBaseOnCode();
-        //objService.displayBaseOnName();
-        //objService.DisplayInventory();
-        //objAllTool.clearscreen();
-        //objService.test();
         String usern = "";
         String passw = "";
         do

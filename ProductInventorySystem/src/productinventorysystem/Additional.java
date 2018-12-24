@@ -45,12 +45,12 @@ public class Additional
      */
     public void startSc()
     {
-        System.out.println("======================="+welcome+"=======================");
-        System.out.println("|| Welcome to Koubai System, this system is used  to manage products inventory.||");
-        System.out.println("|| You will perform the function by following the instructions of each function||");
-        System.out.println("|| Here are the functions of the system, to use you enter the sequence number  ||");
-        System.out.println("|| of the function and press enter.                                            ||");
-        System.out.println("=================================================================================");
+        System.out.println("================================="+welcome+"================================");
+        System.out.println("||    Welcome to Product Inventory System, this system is used  to manage products inventory.     ||");
+        System.out.println("||    You will perform the function by following the instructions of each function                ||");
+        System.out.println("||    Here are the functions of the system, to use you enter the sequence number of the function  ||");
+        System.out.println("||    and press enter.                                                                            ||");
+        System.out.println("====================================================================================================\n\n");
     }
     /**
      * This function print table header when show list product
@@ -129,4 +129,5 @@ public class Additional
         //print end border
         System.out.println("+--------------+------------------------+------------+--------+----------+-------------------------+");
     }
+   
 }
